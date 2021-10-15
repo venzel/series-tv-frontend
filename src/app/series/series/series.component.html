@@ -1,0 +1,162 @@
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button
+                pButton
+                pRipple
+                label="Nova serie"
+                icon="pi pi-plus"
+                class="p-button-success p-mr-2"
+                (click)="openNew()"
+            ></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table
+        #dt
+        [value]="series"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+        [(selection)]="selectedSeries"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Exibindo {first} de {last}"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h1 class="p-m-0">Series</h1>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Nome<p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="total_seasons" style="text-align: center">
+                    Total de temporadas<p-sortIcon field="total_seasons"></p-sortIcon>
+                </th>
+                <th pSortableColumn="total_seasons" style="text-align: center">
+                    Episodios por temporada<p-sortIcon field="episodes_per_season"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-serie>
+            <tr>
+                <td>{{ serie.name }}</td>
+                <td style="text-align: center">
+                    {{ serie.total_seasons }}
+                </td>
+                <td style="text-align: center">{{ serie.episodes_per_season }}</td>
+                <td>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-pencil"
+                        class="p-button-rounded p-button-success p-mr-2"
+                        (click)="updateSerie(serie)"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-warning"
+                        (click)="deleteSerie(serie)"
+                    ></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Total: {{ series ? series.length : 0 }} series
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog
+    [(visible)]="createSerieDialog"
+    [style]="{ width: '450px' }"
+    header="Dados da serie"
+    [modal]="true"
+    styleClass="p-fluid"
+>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">Nome</label>
+            <input type="text" pInputText id="name" [(ngModel)]="serie.name" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !serie.name">Insira um nome!.</small>
+        </div>
+
+        <div class="p-formgrid p-grid" style="margin-top: 20px">
+            <div class="p-field p-col">
+                <label for="quantity">Total de temporadas</label>
+                <p-inputNumber id="total_seasons" [(ngModel)]="serie.total_seasons"></p-inputNumber>
+            </div>
+            <div class="p-field p-col" style="margin-top: 20px">
+                <label for="quantity">Episodios por temporada</label>
+                <p-inputNumber
+                    id="episodes_per_season"
+                    [(ngModel)]="serie.episodes_per_season"
+                ></p-inputNumber>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Cancelar"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="hideCreateSerieDialog()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Salvar"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="createSerieExecute()"
+        ></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog
+    [(visible)]="updateSerieDialog"
+    [style]="{ width: '450px' }"
+    header="Dados da serie"
+    [modal]="true"
+    styleClass="p-fluid"
+>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">Nome</label>
+            <input type="text" pInputText id="name" [(ngModel)]="serie.name" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !serie.name">Insira um nome!.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Cancelar"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="hideUpdateSerieDialog()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Salvar"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="updateSerieExecute()"
+        ></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

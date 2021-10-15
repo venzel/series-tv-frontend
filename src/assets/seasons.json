@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": "1000",
+            "name": "Temporada 1",
+            "total_episodes": 4,
+            "watcheds": 2
+        },
+        {
+            "id": "1001",
+            "name": "Temporada 2",
+            "total_episodes": 4,
+            "watcheds": 0
+        },
+        {
+            "id": "1002",
+            "name": "Temporada 3",
+            "total_episodes": 4,
+            "watcheds": 1
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": "1000",
+            "name": "Episode 1",
+            "time": 120,
+            "watched": false
+        },
+        {
+            "id": "1001",
+            "name": "Episode 2",
+            "time": 125,
+            "watched": false
+        },
+        {
+            "id": "1002",
+            "name": "Episode 3",
+            "time": 130,
+            "watched": false
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": "1000",
+            "name": "Lord of kings",
+            "total_seasons": 3,
+            "episodes_per_season": 6
+        },
+        {
+            "id": "1001",
+            "name": "Friends",
+            "total_seasons": 3,
+            "episodes_per_season": 6
+        },
+        {
+            "id": "1002",
+            "name": "Avatar",
+            "total_seasons": 3,
+            "episodes_per_season": 6
+        }
+    ]
+}

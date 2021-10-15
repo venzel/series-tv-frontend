@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": "1000",
+            "name": "Tiago",
+            "email": "tiago@gmail.com",
+            "password": "tiago"
+        },
+        {
+            "id": "1001",
+            "name": "Alex",
+            "email": "alex@gmail.com",
+            "password": "alex"
+        },
+        {
+            "id": "1002",
+            "name": "Marcos",
+            "email": "marcos@gmail.com",
+            "password": "marcos"
+        }
+    ]
+}
