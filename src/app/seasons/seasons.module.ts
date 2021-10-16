@@ -13,6 +13,7 @@ import { SerieService } from '../series/services';
 import { HttpUtilService } from '../shared/services';
 
 import { MessageService } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
     declarations: [SeasonsComponent],
@@ -23,6 +24,7 @@ import { MessageService } from 'primeng/api';
         SeasonsRoutingModule,
         TableModule,
         ToastModule,
+        BreadcrumbModule,
     ],
     providers: [HttpUtilService, SerieService, MessageService],
 })

@@ -1,15 +1,16 @@
 <p-toast></p-toast>
 
 <div class="card">
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
     <p-table
         #dt
         [value]="seasons"
-        [rows]="5"
-        [paginator]="false"
+        [rows]="10"
+        [paginator]="true"
         [rowHover]="true"
         dataKey="id"
         currentPageReportTemplate="Exibindo de {first} ate {last}"
-        [showCurrentPageReport]="false"
+        [showCurrentPageReport]="true"
     >
         <ng-template pTemplate="caption">
             <h1 class="p-m-0">Temporadas de {{ serie.name }}</h1>

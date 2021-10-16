@@ -1,23 +1,10 @@
 <p-toast></p-toast>
-
 <div class="card">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <button
-                pButton
-                pRipple
-                icon="pi pi-check"
-                class="p-button-primary"
-                label="Marcar como lida"
-                (click)="markWatched()"
-                [disabled]="!selectedEpisodes || !selectedEpisodes.length"
-            ></button>
-        </ng-template>
-    </p-toolbar>
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
     <p-table
         #dt
         [value]="episodes"
-        [rows]="5"
+        [rows]="10"
         [paginator]="true"
         [(selection)]="selectedEpisodes"
         [rowHover]="true"
@@ -26,32 +13,33 @@
         [showCurrentPageReport]="true"
     >
         <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h1 class="p-m-0">Episodios / Temporada / Game of Thrones</h1>
-            </div>
+            <h1 class="p-m-0">Episodios</h1>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                <th pSortableColumn="name">
+                    Nome<p-sortIcon field="episode_name"></p-sortIcon>
                 </th>
-                <th pSortableColumn="name">Nome<p-sortIcon field="episode_name"></p-sortIcon></th>
                 <th pSortableColumn="time" style="text-align: center">
                     Tempo de episodio<p-sortIcon field="time"></p-sortIcon>
                 </th>
                 <th pSortableColumn="watched" style="text-align: center">
                     Assistido?<p-sortIcon field="watched"></p-sortIcon>
                 </th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-episode>
             <tr>
-                <td>
-                    <p-tableCheckbox [value]="episode"></p-tableCheckbox>
-                </td>
                 <td>{{ episode.name }}</td>
                 <td style="text-align: center">{{ episode.time }} minutos</td>
                 <td style="text-align: center">{{ episode.watched }}</td>
+                <td>
+                    <p-inputSwitch
+                        (onChange)="handleChange($event, episode.id)"
+                        [trueValue]="!episode.watched"
+                    ></p-inputSwitch>
+                </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

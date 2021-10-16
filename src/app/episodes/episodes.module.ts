@@ -28,8 +28,13 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CheckboxModule } from 'primeng/checkbox';
-import { SeasonService } from '../seasons/services/season.service';
+import { InputSwitchModule } from 'primeng/inputswitch';
+
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+
 import { HttpUtilService } from '../shared/services/http-util.service';
+import { SeasonService } from '../seasons/services/season.service';
+import { EpisodeService } from './services/episode.service';
 
 @NgModule({
     declarations: [EpisodesComponent],
@@ -57,7 +62,15 @@ import { HttpUtilService } from '../shared/services/http-util.service';
         ConfirmDialogModule,
         InputTextareaModule,
         CheckboxModule,
+        BreadcrumbModule,
+        InputSwitchModule,
     ],
-    providers: [HttpUtilService, SeasonService, MessageService, ConfirmationService],
+    providers: [
+        HttpUtilService,
+        SeasonService,
+        EpisodeService,
+        MessageService,
+        ConfirmationService,
+    ],
 })
 export class EpisodesModule {}
