@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { SeriesComponent } from './series/series.component';
 import { SeriesRoutingModule } from './series-routing.module';
 
-import { SerieService } from './serie.service';
+import { HttpUtilService } from '../../../src/app/shared';
+import { SerieService } from './services';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -56,6 +57,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         ConfirmDialogModule,
         InputTextareaModule,
     ],
-    providers: [SerieService, MessageService, ConfirmationService],
+    providers: [HttpUtilService, SerieService, MessageService, ConfirmationService],
 })
 export class SeriesModule {}

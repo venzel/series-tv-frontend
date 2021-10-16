@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Serie } from '../serie';
-import { SerieService } from '../serie.service';
+
+import { Router } from '@angular/router';
+
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+
+import { Serie } from '../models';
+
+import { HttpUtilService } from '../../shared';
+
+import { SerieService } from '../services';
 
 @Component({
     selector: 'app-series',
@@ -18,19 +25,27 @@ export class SeriesComponent implements OnInit {
     submitted: boolean;
 
     constructor(
+        private router: Router,
+        private httpUtil: HttpUtilService,
         private serieService: SerieService,
         private messageService: MessageService,
         private confirmationService: ConfirmationService
     ) {}
 
-    async ngOnInit(): Promise<void> {
-        await this.readData();
+    async ngOnInit() {
+        this.populateDataDrid();
     }
 
-    async readData(): Promise<void> {
-        await this.serieService.getSeries().then((data) => {
-            this.series = data;
-        });
+    populateDataDrid() {
+        this.serieService.listSeriesExecute().subscribe(
+            (data) => {
+                this.series = data;
+            },
+            (err) => {
+                const msg: string = 'Erro ao listar series.';
+                // this.snackBar.open(msg, "Erro", { duration: 5000 });
+            }
+        );
     }
 
     openNew() {
@@ -38,26 +53,6 @@ export class SeriesComponent implements OnInit {
         this.submitted = false;
         this.createSerieDialog = true;
     }
-
-    /*
-    deleteSelectedSeries() {
-        this.confirmationService.confirm({
-            message: 'Tem certeza que deseja deletar as series?',
-            header: 'Confirme',
-            icon: 'pi pi-exclamation-triangle',
-            accept: () => {
-                this.series = this.series.filter((e) => !this.selectedSeries.includes(e));
-                this.selectedSeries = null;
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Sucesso!',
-                    detail: 'Series deletedadas!',
-                    life: 3000,
-                });
-            },
-        });
-    }
-    */
 
     createSerie(serie: Serie) {
         this.serie = { ...serie };
@@ -69,131 +64,100 @@ export class SeriesComponent implements OnInit {
         this.updateSerieDialog = true;
     }
 
-    deleteSerie(serie: Serie): void {
-        this.confirmationService.confirm({
-            message: 'Deseja deletar a serie ' + serie.name + '?',
-            header: 'Confirme',
-            icon: 'pi pi-exclamation-triangle',
-            accept: () => {
-                this.serieService.deleteSerie(serie.id);
-                this.series = this.series.filter((val) => val.id !== serie.id);
-                this.serie = {};
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Sucesso!',
-                    detail: 'Serie deletada!',
-                    life: 3000,
-                });
-            },
-        });
-    }
-
-    /*
-    deleteSerie(serie: Serie) {
-        this.confirmationService.confirm({
-            message: 'Deseja deletar a serie ' + serie.name + '?',
-            header: 'Confirme',
-            icon: 'pi pi-exclamation-triangle',
-            accept: () => {
-                this.series = this.series.filter((val) => val.id !== serie.id);
-                this.serie = {};
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Sucesso!',
-                    detail: 'Serie deletada!',
-                    life: 3000,
-                });
-            },
-        });
-    }
-    */
-
-    hideCreateSerieDialog() {
+    handleHideCreateSerieDialog() {
         this.createSerieDialog = false;
         this.submitted = false;
     }
 
-    hideUpdateSerieDialog() {
+    hadleHideUpdateSerieDialog() {
         this.updateSerieDialog = false;
         this.submitted = false;
     }
 
-    findIndexById(id: string): number {
-        let index = -1;
-
-        for (let i = 0; i < this.series.length; i++) {
-            if (this.series[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
-
-    createId(): string {
-        let id = '';
-        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-        for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-
-        return id;
-    }
-
-    createSerieExecute() {
+    handleCreateSerie() {
         this.submitted = true;
 
         if (this.serie.name.trim()) {
-            this.serieService.saveSerie(this.serie);
+            this.serieService.createSerieExecute(this.serie).subscribe(
+                (data) => {
+                    this.populateDataDrid();
 
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Sucesso!',
-                detail: 'Serie criada!',
-                life: 3000,
-            });
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Sucesso!',
+                        detail: `Serie ${this.serie.name} criada!`,
+                        life: 3000,
+                    });
 
-            this.createSerieDialog = false;
+                    this.createSerieDialog = false;
+                },
+                (err) => {
+                    let msg: string = 'Tente novamente em instantes.';
 
-            this.serie = {};
+                    if (err.status == 400) {
+                        msg = err.error.errors.join(' ');
+                    }
+                }
+            );
         }
+    }
 
-        return null;
+    handleUpdateSerie() {
+        if (this.serie.name.trim()) {
+            this.serieService.updateSerieExecute(this.serie).subscribe(
+                (data) => {
+                    this.populateDataDrid();
+
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Sucesso!',
+                        detail: `Serie ${this.serie.name} atualizada!`,
+                        life: 3000,
+                    });
+
+                    this.updateSerieDialog = false;
+                },
+                (err) => {
+                    let msg: string = 'Tente novamente em instantes.';
+
+                    if (err.status == 400) {
+                        msg = err.error.errors.join(' ');
+                    }
+                }
+            );
+        }
+    }
+
+    handleDeleteSerie(serie: Serie) {
+        this.confirmationService.confirm({
+            message: `Deseja deletar a serie ${serie.name}?`,
+            header: 'Confirme',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.serieService.deleteSerieExecute(serie.id).subscribe(
+                    (data) => {
+                        this.populateDataDrid();
+
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Sucesso!',
+                            detail: `Serie ${serie.name} deletada!`,
+                            life: 3000,
+                        });
+                    },
+                    (err) => {
+                        let msg: string = 'Tente novamente em instantes.';
+
+                        if (err.status == 400) {
+                            msg = err.error.errors.join(' ');
+                        }
+                    }
+                );
+            },
+        });
     }
 
     /*
-    createSerieExecute() {
-        this.submitted = true;
-
-        if (this.serie.name.trim()) {
-            if (this.serie.id) {
-                this.series[this.findIndexById(this.serie.id)] = this.serie;
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Sucesso!',
-                    detail: 'Serie atualizada!',
-                    life: 3000,
-                });
-            } else {
-                this.serie.id = this.createId();
-                this.series.push(this.serie);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Sucesso!',
-                    detail: 'Serie criada!',
-                    life: 3000,
-                });
-            }
-
-            this.series = [...this.series];
-            this.createSerieDialog = false;
-            this.serie = {};
-        }
-    }
-    */
-
     updateSerieExecute() {
         this.submitted = true;
 
@@ -211,4 +175,5 @@ export class SeriesComponent implements OnInit {
             this.serie = {};
         }
     }
+    */
 }

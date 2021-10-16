@@ -12,6 +12,6 @@ export class RegisterService {
     constructor(private http: HttpClient) {}
 
     save(register: Register): Observable<any> {
-        return this.http.post(env.baseUrl + this.PATH, register);
+        return this.http.post(env.baseApiUrl + this.PATH, register);
     }
 }

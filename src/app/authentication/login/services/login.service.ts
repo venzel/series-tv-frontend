@@ -12,6 +12,6 @@ export class LoginService {
     constructor(private http: HttpClient) {}
 
     logon(login: Login): Observable<any> {
-        return this.http.post(env.baseUrl + this.PATH, login);
+        return this.http.post(env.baseApiUrl + this.PATH, login);
     }
 }

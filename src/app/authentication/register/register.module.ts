@@ -16,6 +16,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterService } from './services';
 
+import { SharedModule } from '../../shared/shared.module';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -29,6 +31,7 @@ import { RegisterService } from './services';
         MatIconModule,
         MatSnackBarModule,
         FlexLayoutModule,
+        SharedModule,
     ],
     declarations: [RegisterComponent, RegistrationComponent],
     providers: [RegisterService],

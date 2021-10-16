@@ -37,7 +37,9 @@
                     Total de temporadas<p-sortIcon field="total_seasons"></p-sortIcon>
                 </th>
                 <th pSortableColumn="total_seasons" style="text-align: center">
-                    Episodios por temporada<p-sortIcon field="episodes_per_season"></p-sortIcon>
+                    Episodios por temporada<p-sortIcon
+                        field="episodes_per_season"
+                    ></p-sortIcon>
                 </th>
                 <th></th>
             </tr>
@@ -62,7 +64,7 @@
                         pRipple
                         icon="pi pi-trash"
                         class="p-button-rounded p-button-warning"
-                        (click)="deleteSerie(serie)"
+                        (click)="handleDeleteSerie(serie)"
                     ></button>
                 </td>
             </tr>
@@ -85,14 +87,26 @@
     <ng-template pTemplate="content">
         <div class="p-field">
             <label for="name">Nome</label>
-            <input type="text" pInputText id="name" [(ngModel)]="serie.name" required autofocus />
-            <small class="p-invalid" *ngIf="submitted && !serie.name">Insira um nome!.</small>
+            <input
+                type="text"
+                pInputText
+                id="name"
+                [(ngModel)]="serie.name"
+                required
+                autofocus
+            />
+            <small class="p-invalid" *ngIf="submitted && !serie.name"
+                >Insira um nome!.</small
+            >
         </div>
 
         <div class="p-formgrid p-grid" style="margin-top: 20px">
             <div class="p-field p-col">
                 <label for="quantity">Total de temporadas</label>
-                <p-inputNumber id="total_seasons" [(ngModel)]="serie.total_seasons"></p-inputNumber>
+                <p-inputNumber
+                    id="total_seasons"
+                    [(ngModel)]="serie.total_seasons"
+                ></p-inputNumber>
             </div>
             <div class="p-field p-col" style="margin-top: 20px">
                 <label for="quantity">Episodios por temporada</label>
@@ -111,7 +125,7 @@
             label="Cancelar"
             icon="pi pi-times"
             class="p-button-text"
-            (click)="hideCreateSerieDialog()"
+            (click)="handleHideCreateSerieDialog()"
         ></button>
         <button
             pButton
@@ -119,7 +133,7 @@
             label="Salvar"
             icon="pi pi-check"
             class="p-button-text"
-            (click)="createSerieExecute()"
+            (click)="handleCreateSerie()"
         ></button>
     </ng-template>
 </p-dialog>
@@ -134,8 +148,17 @@
     <ng-template pTemplate="content">
         <div class="p-field">
             <label for="name">Nome</label>
-            <input type="text" pInputText id="name" [(ngModel)]="serie.name" required autofocus />
-            <small class="p-invalid" *ngIf="submitted && !serie.name">Insira um nome!.</small>
+            <input
+                type="text"
+                pInputText
+                id="name"
+                [(ngModel)]="serie.name"
+                required
+                autofocus
+            />
+            <small class="p-invalid" *ngIf="submitted && !serie.name"
+                >Insira um nome!.</small
+            >
         </div>
     </ng-template>
 
@@ -146,7 +169,7 @@
             label="Cancelar"
             icon="pi pi-times"
             class="p-button-text"
-            (click)="hideUpdateSerieDialog()"
+            (click)="hadleHideUpdateSerieDialog()"
         ></button>
         <button
             pButton
@@ -154,7 +177,7 @@
             label="Salvar"
             icon="pi pi-check"
             class="p-button-text"
-            (click)="updateSerieExecute()"
+            (click)="handleUpdateSerie()"
         ></button>
     </ng-template>
 </p-dialog>
