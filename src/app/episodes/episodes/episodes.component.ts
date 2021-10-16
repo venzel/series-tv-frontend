@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Episode } from '../episode';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { EpisodeService } from '../episode.service';
+
+import { SeasonService } from '../../seasons/services/season.service';
+
+import { ActivatedRoute } from '@angular/router';
+import { Season } from '../../seasons/models/season.model';
 
 @Component({
     selector: 'app-episodes',
@@ -10,17 +13,33 @@ import { EpisodeService } from '../episode.service';
     styleUrls: ['./episodes.component.scss'],
 })
 export class EpisodesComponent implements OnInit {
-    episodes: Episode[];
-    selectedEpisodes: Episode[];
+    season: Season;
+    episodes: any[];
+    selectedEpisodes: any[];
 
     constructor(
-        private episodeService: EpisodeService,
+        private seasonService: SeasonService,
         private messageService: MessageService,
-        private confirmationService: ConfirmationService
+        private confirmationService: ConfirmationService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
-        this.episodeService.getEpisodes().then((data) => (this.episodes = data));
+        this.populateDataDrid();
+    }
+
+    populateDataDrid() {
+        const seasonId = this.route.snapshot.params['id'];
+
+        this.seasonService.showSeasonExecute(seasonId).subscribe(
+            (data) => {
+                this.season = data;
+                this.episodes = data.episodes;
+            },
+            (err) => {
+                const msg: string = 'Erro ao listar episodios.';
+            }
+        );
     }
 
     markWatched() {

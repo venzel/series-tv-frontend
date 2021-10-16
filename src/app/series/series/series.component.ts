@@ -43,7 +43,6 @@ export class SeriesComponent implements OnInit {
             },
             (err) => {
                 const msg: string = 'Erro ao listar series.';
-                // this.snackBar.open(msg, "Erro", { duration: 5000 });
             }
         );
     }
@@ -156,24 +155,4 @@ export class SeriesComponent implements OnInit {
             },
         });
     }
-
-    /*
-    updateSerieExecute() {
-        this.submitted = true;
-
-        if (this.serie.name.trim()) {
-            this.series[this.findIndexById(this.serie.id)] = this.serie;
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Sucesso!',
-                detail: 'Serie atualizada!',
-                life: 3000,
-            });
-
-            this.series = [...this.series];
-            this.updateSerieDialog = false;
-            this.serie = {};
-        }
-    }
-    */
 }

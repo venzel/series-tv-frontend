@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { EpisodesRoutingModule } from './episodes-routing.module';
 import { EpisodesComponent } from './episodes/episodes.component';
 
-import { EpisodeService } from './episode.service';
-
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -30,6 +28,8 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CheckboxModule } from 'primeng/checkbox';
+import { SeasonService } from '../seasons/services/season.service';
+import { HttpUtilService } from '../shared/services/http-util.service';
 
 @NgModule({
     declarations: [EpisodesComponent],
@@ -58,6 +58,6 @@ import { CheckboxModule } from 'primeng/checkbox';
         InputTextareaModule,
         CheckboxModule,
     ],
-    providers: [EpisodeService, MessageService, ConfirmationService],
+    providers: [HttpUtilService, SeasonService, MessageService, ConfirmationService],
 })
 export class EpisodesModule {}

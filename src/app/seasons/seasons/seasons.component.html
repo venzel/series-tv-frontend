@@ -5,30 +5,34 @@
         #dt
         [value]="seasons"
         [rows]="5"
-        [paginator]="true"
+        [paginator]="false"
         [rowHover]="true"
         dataKey="id"
         currentPageReportTemplate="Exibindo de {first} ate {last}"
-        [showCurrentPageReport]="true"
+        [showCurrentPageReport]="false"
     >
         <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h1 class="p-m-0">Temporadas / Game of Thrones</h1>
-            </div>
+            <h1 class="p-m-0">Temporadas de {{ serie.name }}</h1>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name">Nome<p-sortIcon field="episode_name"></p-sortIcon></th>
-                <th pSortableColumn="watcheds" style="text-align: center">
-                    Episodios assistidos<p-sortIcon field="episodes_whatcheds"></p-sortIcon>
+                <th pSortableColumn="name">
+                    Nome<p-sortIcon field="episode_name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="episodes_whatcheds" style="text-align: center">
+                    Episodios assistidos<p-sortIcon
+                        field="episodes_whatcheds"
+                    ></p-sortIcon>
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-season>
             <tr>
-                <td>{{ season.name }}</td>
+                <td>
+                    <a [routerLink]="['/season', season.id]">{{ season.name }}</a>
+                </td>
                 <td style="text-align: center">
-                    {{ season.watcheds }}/{{ season.total_episodes }}
+                    {{ season.episodes_watcheds }}/{{ season.total_episodes }}
                 </td>
             </tr>
         </ng-template>

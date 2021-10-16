@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import { Season } from '../season';
-import { SeasonService } from '../season.service';
+import { Serie } from '../../series/models';
+import { SerieService } from '../../series/services';
 
 @Component({
     selector: 'app-seasons',
@@ -9,11 +10,26 @@ import { SeasonService } from '../season.service';
     styleUrls: ['./seasons.component.scss'],
 })
 export class SeasonsComponent implements OnInit {
-    seasons: Season[];
+    serie: Serie;
+    seasons: any[];
 
-    constructor(private seasonService: SeasonService) {}
+    constructor(private serieService: SerieService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        this.seasonService.getSeasons().then((data) => (this.seasons = data));
+        this.populateDataDrid();
+    }
+
+    populateDataDrid() {
+        const serieId = this.route.snapshot.params['id'];
+
+        this.serieService.showSerieExecute(serieId).subscribe(
+            (data) => {
+                this.serie = data;
+                this.seasons = data.seasons;
+            },
+            (err) => {
+                const msg: string = 'Erro ao listar temporadas.';
+            }
+        );
     }
 }

@@ -10,6 +10,7 @@ import { HttpUtilService } from '../../shared';
 export class SerieService {
     private readonly PATH: string = 'series';
     private readonly PATH_CREATE_SERIE = 'serie_wizard';
+    private readonly PATH_SHOW_SERIE = 'series/{serieId}';
     private readonly PATH_UPDATE_SERIE = 'series/{serieId}';
     private readonly PATH_DELETE_SERIE = 'series/{serieId}';
 
@@ -22,7 +23,7 @@ export class SerieService {
         return this.http.post(url, serie, this.httpUtil.headers());
     }
 
-    // FALTA
+    // OK
     updateSerieExecute(serie: Serie): Observable<any> {
         const url =
             env.baseApiUrl + this.PATH_UPDATE_SERIE.replace('{serieId}', serie.id);
@@ -33,6 +34,13 @@ export class SerieService {
     // OK
     listSeriesExecute(): Observable<any> {
         const url = env.baseApiUrl + this.PATH;
+
+        return this.http.get(url, this.httpUtil.headers());
+    }
+
+    // Ok
+    showSerieExecute(serieId: string): Observable<any> {
+        const url = env.baseApiUrl + this.PATH_SHOW_SERIE.replace('{serieId}', serieId);
 
         return this.http.get(url, this.httpUtil.headers());
     }

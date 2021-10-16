@@ -46,7 +46,9 @@
         </ng-template>
         <ng-template pTemplate="body" let-serie>
             <tr>
-                <td>{{ serie.name }}</td>
+                <td>
+                    <a [routerLink]="['/series', serie.id]">{{ serie.name }}</a>
+                </td>
                 <td style="text-align: center">
                     {{ serie.total_seasons }}
                 </td>
