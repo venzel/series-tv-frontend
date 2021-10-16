@@ -1,27 +1,72 @@
-# Frontend
+# SeriesTV
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.9.
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/venzel/series-tv-frontend/blob/master/LICENSE)
 
-## Development server
+> Projeto em Java com Spring Boot da disciplina Desenvolvimento de Sistemas para Web, ministrada pelo professor orientador
+> Danyllo Wagner pelo IPFB 2021.2.<br />
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Sobre
 
-## Code scaffolding
+Aplicação fullstack de um sistema de séries de tv.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<hr />
 
-## Build
+## Autores
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+-   Edivam Enéas de Almeida Júnior
+-   Joab da Silva Maia
 
-## Running unit tests
+<hr />
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Back-end
 
-## Running end-to-end tests
+-   Api REST Full com arquitetura Feature By Packages
+-   Java
+-   Spring Boot
+-   JPA / Hibernate
+-   Autenticação Token JWT
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+👉 [Link para o repositório do back end](https://github.com/venzel/series-tv-backend)
 
-## Further help
+### Front-end
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+-   Angular 12
+
+### Persistência de dados
+
+-   MySQL
+
+### Bibliotecas auxiliares
+
+-   Angular Material
+-   PrimeNG
+
+### Rotas
+
+-   /register -> Cria um usuário (POST)
+-   /login -> Autenticação de usuário (POST)
+-   /series -> Lista as séries (GET)
+-   /series/:id -> Exibe uma série e as temporadas (GET)
+-   /seasons/:id -> Exibe uma temporada e os episódios (GET)
+
+<hr />
+
+### Para clonar e rodar o projeto
+
+#### Pré-requisitos
+
+-   Npm/Yarn
+-   NodeJs
+-   Docker
+-   Docker compose
+
+```bash
+# Para clonar o repositório
+git clone https://github.com/venzel/series-tv-frontend
+
+# Para acessar a pasta do projeto assim que clonado o repositório
+cd series-tv-frontend
+
+# Para rodar o projeto na porta 8181
+make run
+```
