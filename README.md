@@ -62,11 +62,17 @@ Aplicação fullstack de um sistema de séries de tv.
 
 ```bash
 # Para clonar o repositório
-git clone https://github.com/venzel/series-tv-frontend
+$ git clone https://github.com/venzel/series-tv-frontend
 
 # Para acessar a pasta do projeto assim que clonado o repositório
-cd series-tv-frontend
+$ cd series-tv-frontend
+
+# Instala globalmente o angular atraves do yarn
+$ yarn global add @angular/cli
+
+# Baixa os pacotes e dependencias
+$ yarn install
 
 # Para rodar o projeto na porta 8181
-make run
+$ make run
 ```
