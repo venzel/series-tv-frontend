@@ -47,8 +47,8 @@ $ sudo curl -L https://raw.githubusercontent.com/docker/compose/1.25.3/contrib/c
 ```bash
 $ sudo nano ~/.zshrc
 
-  # INSERT
-  plugins=(git docker docker-compose)
+# CHANGE/INSERT
+plugins=(git docker docker-compose)
 ```
 
 ### test
@@ -62,6 +62,6 @@ $ sudo docker-compose + [TAB 2x]
 ```bash
 $ sudo docker-compose --version
 
-  # RETURN
-  docker-compose version 1.25.3, build unknown
+# RETURN
+docker-compose version 1.25.3, build unknown
 ```
