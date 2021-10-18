@@ -25,7 +25,13 @@ $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/instal
 ## Install firecode font
 
 ```bash
-$ sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"sudo apt updatesudo apt install fonts-firacode
+$ sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
+
+# UPDATE SYSTEM
+$ sudo apt-get update
+
+# INSTALL FIRACODE FONTS
+$ sudo apt install fonts-firacode
 ```
 
 ## Install spaceship theme
