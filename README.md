@@ -67,6 +67,11 @@ $ git clone https://github.com/venzel/series-tv-frontend
 # Para acessar a pasta do projeto assim que clonado o repositório
 $ cd series-tv-frontend
 
+# EDIT environments and set url API Rest
+$ nano ./src/environments/environment.prod.ts
+$ nano ./src/environments/environment.ts
+
+
 # Instala globalmente o angular atraves do yarn
 $ yarn global add @angular/cli
 
