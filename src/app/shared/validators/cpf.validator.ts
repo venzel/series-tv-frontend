@@ -5,11 +5,13 @@ export class CpfValidator {
         if (this.cpfValid(control.value)) {
             return null;
         }
+
         return { cpf: true };
     }
 
     static cpfValid(cpf: any): boolean {
         cpf = !cpf || cpf.replace(/\D/g, '');
+
         let cpfsInvsRegex = /1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}/;
 
         if (!cpf || cpf.length !== 11 || cpfsInvsRegex.test(cpf)) {
@@ -29,19 +31,23 @@ export class CpfValidator {
         }
 
         let digits = 11 - (e % 11);
+
         if (digits === 10 || digits === 11) {
             digits = 0;
         }
 
         let cpfWitoutDigitVerif = cpf.substring(0, cpf.length - 2) + digits;
+
         x = 11;
         e = 0;
+
         for (let j = 0; j <= cpf.length - 2; j++) {
             e += cpfWitoutDigitVerif.substring(j, j + 1) * x;
             x -= 1;
         }
 
         let digitVerificator = 11 - (e % 11);
+
         if (digitVerificator === 10 || digitVerificator === 11) {
             digitVerificator = 0;
         }

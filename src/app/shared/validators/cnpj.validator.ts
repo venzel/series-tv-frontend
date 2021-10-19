@@ -5,6 +5,7 @@ export class CnpjValidator {
         if (this.cnpjValid(control.value)) {
             return null;
         }
+
         return { cnpj: true };
     }
 
@@ -26,12 +27,14 @@ export class CnpjValidator {
 
         for (let i = size; i >= 1; i--) {
             sum += numbers.charAt(size - i) * pos--;
+
             if (pos < 2) {
                 pos = 9;
             }
         }
 
         let result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+
         if (result !== parseInt(digits.charAt(0), 10)) {
             return false;
         }
@@ -43,6 +46,7 @@ export class CnpjValidator {
 
         for (let i = size; i >= 1; i--) {
             sum += numbers.charAt(size - i) * pos--;
+
             if (pos < 2) {
                 pos = 9;
             }

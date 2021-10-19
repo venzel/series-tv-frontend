@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { SeriesComponent } from './series/series.component';
 import { SeriesRoutingModule } from './series-routing.module';
 
 import { HttpUtilService } from '../../../src/app/shared';
 import { SerieService } from './services';
-
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';

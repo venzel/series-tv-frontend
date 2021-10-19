@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
-
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 
@@ -20,12 +18,11 @@ export class SeriesComponent implements OnInit {
     createSerieDialog: boolean;
     updateSerieDialog: boolean;
     series: Serie[];
-    serie: Serie;
+    serie: Serie = {};
     selectedSeries: Serie[];
     submitted: boolean;
 
     constructor(
-        private router: Router,
         private httpUtil: HttpUtilService,
         private serieService: SerieService,
         private messageService: MessageService,
@@ -33,6 +30,7 @@ export class SeriesComponent implements OnInit {
     ) {}
 
     async ngOnInit() {
+        this.httpUtil.guard();
         this.populateDataDrid();
     }
 

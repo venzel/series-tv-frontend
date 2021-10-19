@@ -26,15 +26,13 @@
                 <th pSortableColumn="watched" style="text-align: center">
                     Assistido?<p-sortIcon field="watched"></p-sortIcon>
                 </th>
-                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-episode>
             <tr>
                 <td>{{ episode.name }}</td>
                 <td style="text-align: center">{{ episode.time }} minutos</td>
-                <td style="text-align: center">{{ episode.watched }}</td>
-                <td>
+                <td style="text-align: center">
                     <p-inputSwitch
                         (onChange)="handleChange($event, episode.id)"
                         [trueValue]="!episode.watched"

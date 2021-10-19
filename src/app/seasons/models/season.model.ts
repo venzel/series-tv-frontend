@@ -6,6 +6,7 @@ export class Season {
         public name?: string,
         public total_episodes?: number,
         public episodes_watcheds?: number,
-        public serie?: Serie
+        public serie?: Serie,
+        public serie_id?: string
     ) {}
 }

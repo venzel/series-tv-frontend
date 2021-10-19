@@ -5,7 +5,10 @@ import { MessageService } from 'primeng/api';
 import { SeasonService } from '../../seasons/services/season.service';
 
 import { ActivatedRoute } from '@angular/router';
+
 import { Season } from '../../seasons/models';
+
+import { HttpUtilService } from '../../shared';
 
 import { MenuItem } from 'primeng/api';
 import { Episode } from '../models';
@@ -17,13 +20,14 @@ import { EpisodeService } from '../services/episode.service';
     styleUrls: ['./episodes.component.scss'],
 })
 export class EpisodesComponent implements OnInit {
-    season: Season;
+    season: Season = {};
     episodes: Episode[];
     selectedEpisodes: Episode[];
     items: MenuItem[];
     home: MenuItem;
 
     constructor(
+        private httpUtil: HttpUtilService,
         private seasonService: SeasonService,
         private episodeService: EpisodeService,
         private messageService: MessageService,
@@ -32,6 +36,7 @@ export class EpisodesComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.httpUtil.guard();
         this.populateDataDrid();
     }
 

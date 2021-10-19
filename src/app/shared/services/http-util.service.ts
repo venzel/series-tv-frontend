@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class HttpUtilService {
-    constructor() {}
+    constructor(private router: Router) {}
 
     headers() {
         let httpHeaders: HttpHeaders = new HttpHeaders();
@@ -34,5 +36,11 @@ export class HttpUtilService {
         }
 
         return JSON.parse(atob(localStorage['token'].split('.')[1]));
+    }
+
+    guard() {
+        if (!this.getDataUser()) {
+            this.router.navigate(['/login']);
+        }
     }
 }

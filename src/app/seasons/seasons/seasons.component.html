@@ -2,6 +2,18 @@
 
 <div class="card">
     <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button
+                pButton
+                pRipple
+                label="Nova temporada"
+                icon="pi pi-plus"
+                class="p-button-success p-mr-2"
+                (click)="openNew()"
+            ></button>
+        </ng-template>
+    </p-toolbar>
     <p-table
         #dt
         [value]="seasons"
@@ -25,15 +37,32 @@
                         field="episodes_whatcheds"
                     ></p-sortIcon>
                 </th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-season>
             <tr>
                 <td>
-                    <a [routerLink]="['/season', season.id]">{{ season.name }}</a>
+                    <a [routerLink]="['/seasons', season.id]">{{ season.name }}</a>
                 </td>
                 <td style="text-align: center">
                     {{ season.episodes_watcheds }}/{{ season.total_episodes }}
+                </td>
+                <td>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-pencil"
+                        class="p-button-rounded p-button-success p-mr-2"
+                        (click)="updateSeason(season)"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-warning"
+                        (click)="handleDeleteSeason(season)"
+                    ></button>
                 </td>
             </tr>
         </ng-template>
@@ -44,3 +73,102 @@
         </ng-template>
     </p-table>
 </div>
+
+<p-dialog
+    [(visible)]="createSeasonDialog"
+    [style]="{ width: '450px' }"
+    header="Dados da temporada"
+    [modal]="true"
+    styleClass="p-fluid"
+>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">Nome</label>
+            <input
+                type="text"
+                pInputText
+                id="name"
+                [(ngModel)]="season.name"
+                required
+                autofocus
+            />
+            <small class="p-invalid" *ngIf="submitted && !season.name"
+                >Insira um nome!.</small
+            >
+        </div>
+        <div class="p-formgrid p-grid" style="margin-top: 20px">
+            <div class="p-field p-col">
+                <label for="quantity">Total de episodios</label>
+                <p-inputNumber
+                    id="total_episodes"
+                    [(ngModel)]="season.total_episodes"
+                ></p-inputNumber>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Cancelar"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="handleHideCreateSeasonDialog()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Salvar"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="handleCreateSeason()"
+        ></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog
+    [(visible)]="updateSeasonDialog"
+    [style]="{ width: '450px' }"
+    header="Dados da temporada"
+    [modal]="true"
+    styleClass="p-fluid"
+>
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">Nome</label>
+            <input
+                type="text"
+                pInputText
+                id="name"
+                [(ngModel)]="season.name"
+                required
+                autofocus
+            />
+            <small class="p-invalid" *ngIf="submitted && !season.name"
+                >Insira um nome!.</small
+            >
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Cancelar"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="hadleHideUpdateSeasonDialog()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Salvar"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="handleUpdateSeason()"
+        ></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

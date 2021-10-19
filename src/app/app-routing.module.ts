@@ -13,7 +13,7 @@ const routes: Routes = [
             import('./seasons/seasons.module').then((m) => m.SeasonsModule),
     },
     {
-        path: 'season/:id',
+        path: 'seasons/:id',
         loadChildren: () =>
             import('./episodes/episodes.module').then((m) => m.EpisodesModule),
     },
